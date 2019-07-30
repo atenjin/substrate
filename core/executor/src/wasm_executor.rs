@@ -27,7 +27,7 @@ use wasmi::{
 use state_machine::{Externalities, ChildStorageKey};
 use crate::error::{Error, Result};
 use parity_codec::Encode;
-use primitives::{blake2_128, blake2_256, twox_64, twox_128, twox_256, ed25519, sr25519, Pair};
+use primitives::{blake2_128, blake2_256, blake2_512, twox_64, twox_128, twox_256, ed25519, sr25519, Pair};
 use primitives::offchain;
 use primitives::hexdisplay::HexDisplay;
 use primitives::sandbox as sandbox_primitives;
@@ -628,6 +628,17 @@ impl_function_executor!(this: FunctionExecutor<'e, E>,
 			blake2_256(&mem)
 		};
 		this.memory.set(out, &result).map_err(|_| "Invalid attempt to set result in ext_blake2_256")?;
+		Ok(())
+	},
+	ext_blake2_512(data: *const u8, len: u32, out: *mut u8) => {
+		let result: [u8; 64] = if len == 0 {
+			blake2_512(&[0u8; 0])
+		} else {
+			let mem = this.memory.get(data, len as usize)
+				.map_err(|_| "Invalid attempt to get data in ext_blake2_512")?;
+			blake2_512(&mem)
+		};
+		this.memory.set(out, &result).map_err(|_| "Invalid attempt to set result in ext_blake2_512")?;
 		Ok(())
 	},
 	ext_keccak_256(data: *const u8, len: u32, out: *mut u8) => {

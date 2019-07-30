@@ -45,7 +45,7 @@ pub use impl_serde::serialize as bytes;
 #[cfg(feature = "std")]
 pub mod hashing;
 #[cfg(feature = "std")]
-pub use hashing::{blake2_128, blake2_256, twox_64, twox_128, twox_256};
+pub use hashing::{blake2_128, blake2_256, blake2_512, twox_64, twox_128, twox_256};
 #[cfg(feature = "std")]
 pub mod hexdisplay;
 pub mod crypto;
@@ -74,7 +74,7 @@ pub use crypto::{DeriveJunction, Pair, Public};
 pub use hash_db::Hasher;
 // Switch back to Blake after PoC-3 is out
 // pub use self::hasher::blake::BlakeHasher;
-pub use self::hasher::blake2::Blake2Hasher;
+pub use self::hasher::blake2::{self, Blake2Hasher};
 
 /// Context for executing a call into the runtime.
 #[repr(u8)]
