@@ -41,7 +41,7 @@ strum = { optional = true, version = "0.22.0" }
 strum_macros = { optional = true, version = "0.22.0" }
 
 [dev-dependencies]
-parking_lot = "0.11.0"
+parking_lot = "0.11.2"
 rand = { version = "0.7.3" }
 sp-core = { version = "4.0.0-dev", default-features = false, path = "../../primitives/core" }
 sp-io = { version = "4.0.0-dev", path = "../../primitives/io" }
@@ -72,7 +72,7 @@ std = [
 	"log/std",
 ]
 runtime-benchmarks = [
-	"frame-benchmarking",
+	"frame-benchmarking/runtime-benchmarks",
 	"frame-election-provider-support/runtime-benchmarks",
 	"rand",
 	"strum",
